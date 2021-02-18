@@ -1,17 +1,22 @@
+import React, { useState } from "react";
 import Header from "./components/Header";
+import TodoList from "./components/TodoList";
 import TextField from "./components/TextField";
-import TodoCard from "./components/TodoCard";
-import Title from "./components/Title";
 
 const App = () => {
+  const [content, setContent] = useState("");
+
+  const handleChange = (event) => {
+    console.log("value: ", event.target.value);
+    setContent({ value: event.target.value });
+  };
   return (
-    <div className="App">
+    <div className="todo-container">
       <Header />
-      <section style={{ width: "50%", margin: "auto" }}>
-        <Title />
-        <TextField />
-        <TodoCard />
-      </section>
+      <main>
+        <TextField handleChange={handleChange} />
+        <TodoList content={content} />
+      </main>
     </div>
   );
 };
