@@ -1,10 +1,10 @@
 import React from "react";
-import bgLight from "../images/bg-desktop-light.jpg";
+import Title from "./Title";
 
 const Header = () => {
   return (
-    <div>
-      <img src={bgLight} alt="bg-desktop=light" />
+    <div className="header">
+      <Title />
     </div>
   );
 };
