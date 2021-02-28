@@ -1,15 +1,9 @@
 import React from "react";
 
-const TextField = ({ handleChange }) => {
+const TextField = () => {
   return (
     <section className="textField">
-      <input
-        type="text"
-        value=""
-        placeholder="Create a new todo...."
-        // value={this.state.value}
-        onChange={handleChange}
-      />
+      <input type="text" value="" placeholder="Create a new todo...." />
     </section>
   );
 };
