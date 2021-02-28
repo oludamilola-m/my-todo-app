@@ -4,18 +4,28 @@ import TodoList from "./components/TodoList";
 import TextField from "./components/TextField";
 
 const App = () => {
-  const [content, setContent] = useState("");
+  const [todos, setTodos] = useState([
+    { content: "Complete online JavaScript Course", completed: false },
+    { content: "Complete online JavaScript Course", completed: false },
+    { content: "Complete online JavaScript Course", completed: false },
+  ]);
 
-  const handleChange = (event) => {
-    console.log("value: ", event.target.value);
-    setContent({ value: event.target.value });
+  const onKeyDown = (event) => {
+    if (event.key === "Enter") {
+      setTodos((prev) => [
+        { content: event.target.value, completed: false },
+        ...prev,
+      ]);
+      event.target.value = "";
+    }
   };
+
   return (
     <div className="todo-container">
       <Header />
       <main>
-        <TextField handleChange={handleChange} />
-        <TodoList content={content} />
+        <TextField onKeyDown={onKeyDown} />
+        <TodoList todos={todos} />
       </main>
     </div>
   );

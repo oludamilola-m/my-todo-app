@@ -1,9 +1,14 @@
 import React from "react";
 
-const TextField = () => {
+const TextField = ({ onKeyDown }) => {
   return (
     <section className="textField">
-      <input type="text" value="" placeholder="Create a new todo...." />
+      <input
+        type="text"
+        name="todo"
+        placeholder="Create a new todo...."
+        onKeyDown={onKeyDown}
+      />
     </section>
   );
 };
