@@ -12,7 +12,7 @@ const TodoList = () => {
         </ul>
         <div className="todos__info">
           <span>5 item left</span>
-          <div className="todo__filters">
+          <div className="todos__filters">
             <span>All</span>
             <span>Active</span>
             <span>Completed</span>
@@ -20,7 +20,7 @@ const TodoList = () => {
           <span>Clear completed</span>
         </div>
       </div>
-      <div className="filters">
+      <div className="todos--filters">
         <span>All</span>
         <span>Active</span>
         <span>Completed</span>
