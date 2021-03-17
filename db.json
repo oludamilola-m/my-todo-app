@@ -1,14 +1,11 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "content": "Complete online JavaScript Course",
+      "completed": false,
+      "id": 90
     },
-    {
-      "id": 2,
-      "title": "json-server",
-      "author": "typicode"
-    }
+    { "content": "Complete online Ruby Course", "completed": false, "id": 91 },
+    { "content": "Complete online Python Course", "completed": false, "id": 92 }
   ]
 }

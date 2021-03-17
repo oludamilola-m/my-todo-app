@@ -1,15 +1,16 @@
 const initialState = {
-  todos: [
-    { content: "Complete online JavaScript Course", completed: false },
-    { content: "Complete online Ruby Course", completed: false },
-    { content: "Complete online Python Course", completed: false },
-  ],
-  id: 0,
+  todos: [],
 };
+
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "FETCH_TODOS":
+      return {
+        ...state,
+        todos: action.payload,
+      };
     case "ADD_TODO":
-      return { ...state };
+      return { todos: [...state.todos, action.payload] };
     // add a todo
     case "REMOVE_TODO":
       return { ...state };
