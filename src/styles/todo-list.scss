@@ -23,6 +23,9 @@
 
   &__filters {
     display: none;
+    span {
+      cursor: pointer;
+    }
 
     @media only screen and (min-width: 600px) {
       display: flex;
@@ -39,6 +42,10 @@
     margin-top: 1rem;
     padding: 1.5rem;
 
+    span {
+      cursor: pointer;
+    }
+
     @media only screen and (min-width: 600px) {
       display: none;
     }
@@ -47,5 +54,14 @@
 
 .todo-item {
   border-bottom: 1px solid hsl(236, 33%, 92%);
+  display: flex;
   padding: 1.5rem;
+
+  li {
+    padding-left: 15px;
+
+    &.completed {
+      text-decoration: line-through;
+    }
+  }
 }
