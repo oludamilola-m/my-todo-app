@@ -84,30 +84,6 @@ const TodoList = () => {
     dispatch(getTodos());
   }, [dispatch]);
 
-  const handleActiveTodos = () => {
-    dispatch(activeTodos());
-  };
-
-  const handleCompletedTodos = () => {
-    dispatch(clearCompletedTodos());
-  };
-
-  const handleFilterTodos = () => {
-    dispatch(getCompletedTodos());
-  };
-
-  const handleGetAllTodos = () => {
-    dispatch(getTodos());
-  };
-
-  const handleInputChange = (todo) => {
-    dispatch(toggleTodo(todo));
-  };
-
-  const handleRemoveTodo = (todo) => {
-    dispatch(removeTodo(todo));
-  };
-
   return (
     <>
       <div className="todos">
@@ -118,14 +94,14 @@ const TodoList = () => {
                 <input
                   type="checkbox"
                   checked={todo.completed}
-                  onChange={() => handleInputChange(todo)}
+                  onChange={() => dispatch(toggleTodo(todo))}
                 />
                 <li className={`${todo.completed ? "completed" : ""}`}>
                   {todo.content}
                 </li>
                 <li
                   className="removeTodo"
-                  onClick={() => handleRemoveTodo(todo)}
+                  onClick={() => dispatch(removeTodo(todo))}
                 >
                   &times;
                 </li>
@@ -140,17 +116,22 @@ const TodoList = () => {
             </span>
           )}
           <div className="todos__filters">
-            <span onClick={handleGetAllTodos}>All</span>
-            <span onClick={handleActiveTodos}>Active</span>
-            <span onClick={handleFilterTodos}>Completed</span>
+            <span onClick={() => dispatch(getTodos())}>All</span>
+            <span onClick={() => dispatch(activeTodos())}>Active</span>
+            <span onClick={() => dispatch(getCompletedTodos())}>Completed</span>
           </div>
-          <span onClick={handleCompletedTodos}>Clear completed</span>
+          <span
+            className="last"
+            onClick={() => dispatch(clearCompletedTodos())}
+          >
+            Clear completed
+          </span>
         </div>
       </div>
       <div className="todos--filters">
-        <span onClick={handleGetAllTodos}>All</span>
-        <span onClick={handleActiveTodos}>Active</span>
-        <span onClick={handleFilterTodos}>Completed</span>
+        <span onClick={() => dispatch(getTodos())}>All</span>
+        <span onClick={() => dispatch(activeTodos())}>Active</span>
+        <span onClick={() => dispatch(getCompletedTodos())}>Completed</span>
       </div>
     </>
   );
