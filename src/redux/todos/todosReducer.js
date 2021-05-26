@@ -9,13 +9,21 @@ export const REMOVE_TODO = "REMOVE_TODO";
 
 export const todosReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Add Todo
+    case ADD_TODO:
+      return { ...state, todos: [...state.todos, action.payload] };
+
+    // Fetch Todos
     case FETCH_TODOS:
       return {
         ...state,
         todos: action.payload,
       };
-    case ADD_TODO:
-      return { ...state, todos: [...state.todos, action.payload] };
+
+    //remove a todo
+    case REMOVE_TODO:
+      const todos = state.todos.filter((todo) => todo.id !== action.payload);
+      return { ...state, todos: todos };
 
     // Toggle  todo
     case TOGGLE_TODO_COMPLETED:
@@ -26,11 +34,6 @@ export const todosReducer = (state = initialState, action) => {
         return todo;
       });
       return { ...state, todos: res };
-
-    //remove a todo
-    case REMOVE_TODO:
-      const todos = state.todos.filter((todo) => todo.id !== action.payload);
-      return { ...state, todos: todos };
 
     default:
       return { ...state };

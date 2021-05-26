@@ -53,15 +53,21 @@
 }
 
 .todo-item {
+  align-items: center;
   border-bottom: 1px solid hsl(236, 33%, 92%);
   display: flex;
+  justify-content: space-between;
   padding: 1.5rem;
 
   li {
-    padding-left: 15px;
-
     &.completed {
       text-decoration: line-through;
+    }
+
+    &.removeTodo {
+      align-items: center;
+      cursor: pointer;
+      font-size: 2rem;
     }
   }
 }

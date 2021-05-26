@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FETCH_TODOS,
+  REMOVE_TODO,
   TOGGLE_TODO_COMPLETED,
 } from "../redux/todos/todosReducer";
 
@@ -11,12 +12,58 @@ const TodoList = () => {
   const todos = useSelector(({ todosReducer }) => todosReducer.todos);
   const dispatch = useDispatch(); //this hook gives us dispatch method
 
+  const activeTodos = () => {
+    return async (dispatch, _getState) => {
+      const results = await axios.get(
+        `http://localhost:3001/todos?completed=false`
+      );
+      dispatch({
+        type: FETCH_TODOS,
+        payload: results.data,
+      });
+    };
+  };
+
+  const clearCompletedTodos = () => {
+    return async (dispatch, _getState) => {
+      todos.forEach(async (todo) => {
+        if (todo.completed) {
+          await axios.delete(`http://localhost:3001/todos/${todo.id}`);
+          dispatch({
+            type: REMOVE_TODO,
+            payload: todo.id,
+          });
+        }
+      });
+    };
+  };
+
+  const getCompletedTodos = () => {
+    return async (dispatch, _getState) => {
+      const res = await axios.get(`http://localhost:3001/todos?completed=true`);
+      dispatch({
+        type: FETCH_TODOS,
+        payload: res.data,
+      });
+    };
+  };
+
   const getTodos = () => {
     return async (dispatch, _getState) => {
       const res = await axios.get("http://localhost:3001/todos");
       dispatch({
         type: FETCH_TODOS,
         payload: res.data,
+      });
+    };
+  };
+
+  const removeTodo = (todo) => {
+    return async (dispatch, _getState) => {
+      await axios.delete(`http://localhost:3001/todos/${todo.id}`);
+      dispatch({
+        type: REMOVE_TODO,
+        payload: todo.id,
       });
     };
   };
@@ -33,19 +80,21 @@ const TodoList = () => {
     };
   };
 
-  const getCompletedTodos = () => {
-    return async (dispatch, _getState) => {
-      const res = await axios.get(`http://localhost:3001/todos?completed=true`);
-      dispatch({
-        type: FETCH_TODOS,
-        payload: res.data,
-      });
-    };
-  };
-
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);
+
+  const handleActiveTodos = () => {
+    dispatch(activeTodos());
+  };
+
+  const handleCompletedTodos = () => {
+    dispatch(clearCompletedTodos());
+  };
+
+  const handleFilterTodos = () => {
+    dispatch(getCompletedTodos());
+  };
 
   const handleGetAllTodos = () => {
     dispatch(getTodos());
@@ -55,8 +104,8 @@ const TodoList = () => {
     dispatch(toggleTodo(todo));
   };
 
-  const handleFilterTodos = () => {
-    dispatch(getCompletedTodos());
+  const handleRemoveTodo = (todo) => {
+    dispatch(removeTodo(todo));
   };
 
   return (
@@ -74,6 +123,12 @@ const TodoList = () => {
                 <li className={`${todo.completed ? "completed" : ""}`}>
                   {todo.content}
                 </li>
+                <li
+                  className="removeTodo"
+                  onClick={() => handleRemoveTodo(todo)}
+                >
+                  &times;
+                </li>
               </div>
             );
           })}
@@ -86,15 +141,15 @@ const TodoList = () => {
           )}
           <div className="todos__filters">
             <span onClick={handleGetAllTodos}>All</span>
-            <span>Active</span>
+            <span onClick={handleActiveTodos}>Active</span>
             <span onClick={handleFilterTodos}>Completed</span>
           </div>
-          <span>Clear completed</span>
+          <span onClick={handleCompletedTodos}>Clear completed</span>
         </div>
       </div>
       <div className="todos--filters">
         <span onClick={handleGetAllTodos}>All</span>
-        <span>Active</span>
+        <span onClick={handleActiveTodos}>Active</span>
         <span onClick={handleFilterTodos}>Completed</span>
       </div>
     </>
